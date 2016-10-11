@@ -6,5 +6,5 @@ class Player:
     def __str__(self):
         return str(self.game_number) + ' ' + self.name
 
-    def add_games(self, number):
-        self.game_number += number
+    def __add__(self, other):
+        self.game_number += other.game_number
