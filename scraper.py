@@ -11,7 +11,7 @@ class Scraper:
         self.players = Team('', '', '')
 
     def scrape_team(self, url, team):
-        self.browser.open(url)
+        self.browser.open('http://www.echecs.asso.fr/' + url)
         soup = BeautifulSoup(self.browser.response().read(), 'lxml')
         players = soup("tr")
         del players[0:2]
@@ -29,4 +29,4 @@ class Scraper:
         del teams[-1]
         for t in teams:
             team = Team(t("td")[0].text, t("td")[1].text, t("td")[2].text)
-            print team
+            self.scrape_team(t("td")[0]("a")[0]['href'], team)
