@@ -4,12 +4,13 @@ class Team:
         self.division = division
         self.group = group
         self.players = []
+        self.number_rounds = 0
 
     def __str__(self):
-        value = self.name + ' (' + self.division + ', ' + self.group + ')'
+        value = self.name + ' (' + self.division + ', ' + self.group + ') ' + str(self.number_rounds) + '\n'
         self.players.sort(key=lambda player: player.name)
         for p in self.players:
-            value += '\n' + str(p)
+            value += str(p) + '\n'
         return value
 
     def add(self, player):
