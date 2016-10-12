@@ -7,7 +7,7 @@ class Team:
 
     def __str__(self):
         value = self.name + ' (' + self.division + ', ' + self.group + ')'
-        self.players.sort(key = lambda player: player.name)
+        self.players.sort(key=lambda player: player.name)
         for p in self.players:
             value += '\n' + str(p)
         return value
