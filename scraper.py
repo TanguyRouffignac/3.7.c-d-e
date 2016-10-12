@@ -20,3 +20,13 @@ class Scraper:
             team.add(player)
             self.players.add(player)
         self.teams.append(team)
+
+    def scrape_club(self, url):
+        self.browser.open(url)
+        soup = BeautifulSoup(self.browser.response().read(), 'lxml')
+        teams = soup("tr")
+        del teams[0]
+        del teams[-1]
+        for t in teams:
+            team = Team(t("td")[0].text, t("td")[1].text, t("td")[2].text)
+            print team
