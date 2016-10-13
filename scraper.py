@@ -84,3 +84,14 @@ class Scraper:
                             if division == t("td")[2].text:
                                 team = Team(t("td")[0].text, t("td")[1].text, t("td")[2].text)
                                 self.scrape_team(t("td")[3]("a")[0]['href'], team)
+        for team in self.teams:
+            for other in self.teams:
+                if team.name != other.name and team.division == other.division:
+                    for player in other.players:
+                        found = 0
+                        for unavailable in team.unavailable_players:
+                            if player.name == unavailable[0]:
+                                found = 1
+                                break
+                        if found == 0:
+                            team.unavailable_players.append([player.name, 'd'])
