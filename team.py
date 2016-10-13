@@ -5,12 +5,22 @@ class Team:
         self.group = group
         self.players = []
         self.number_rounds = 0
+        self.unavailable_players = []
 
     def __str__(self):
         value = self.name + ' (' + self.division + ', ' + self.group + ') ' + str(self.number_rounds) + '\n'
         self.players.sort(key=lambda player: player.name)
         for p in self.players:
             value += str(p) + '\n'
+        value += '\nNe peuvent jouer la prochaine ronde :\n'
+        for p in self.unavailable_players:
+            value += p[0]
+            if p[1] == 'c':
+                value += ' (3.7.c)\n'
+            if p[1] == 'd':
+                value += ' (3.7.d)\n'
+            if p[1] == 'e':
+                value += ' (3.7.e)\n'
         return value
 
     def add(self, player):

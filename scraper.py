@@ -16,6 +16,9 @@ class Scraper:
         self.players = Team('', '', '')
 
     def scrape_team(self, url, team):
+        for p in self.players.players:
+            if p.game_number >= 3:
+                team.unavailable_players.append([p.name, 'c'])
         self.browser.open('http://www.echecs.asso.fr/' + url)
         soup = BeautifulSoup(self.browser.response().read(), 'lxml')
         matches = soup.body.find_all("div", class_="page-mid")[0].td
@@ -55,6 +58,7 @@ class Scraper:
                                     name += word + ' '
                                 name += words[len(words) - 1]
                             team.add(Player(name, 1))
+                            self.players.add(Player(name, 1))
                     break
             self.browser.form = list(self.browser.forms())[-1]
             self.browser.form.new_control('hidden', '__EVENTTARGET', {'value': ''})
