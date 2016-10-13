@@ -5,8 +5,30 @@ from team import *
 import re
 
 titles = ['g', 'm', 'f', 'gf', 'mf', 'ff']
-leagues = [["Ligue de l'Ile de France", ["Essonne 1", "Hauts de Seine 1", "Paris 1", "Seine et Marne 1",
-                                         "Seine Saint Denis 1", "Val de Marne 1", "Val d'Oise 1", "Yvelines 1"]]]
+leagues = [["Ligue d'Alsace", ["Bas Rhin 1", "Haut Rhin 1", "Bas Rhin 2", "Haut Rhin 2", "Bas Rhin 3", "Haut Rhin 3"]],
+           ["Ligue d'Aquitaine", ["Aquitaine 1"]],
+           ["Ligue de Basse Normandie", ["Basse Normandie 1"]],
+           ["Ligue de Bourgogne", ["Bourgogne 1"], ["Bourgogne 2"]],
+           ["Ligue de Bretagne", ["Departementales Adultes"]],
+           ["Ligue du Centre Val de Loire", ["Centre Val de Loire 1", "Centre Val de Loire 2",
+                                             "Promotion 37 Avenir", "Promotion 37 Espoir"]],
+           ["Ligue de Champagne Ardenne", ["Champagne Ardenne 1"]],
+           ["Ligue de Cote d'Azur", ["Cote d'Azur 1", "Var 1", "Var 2"]],
+           ["Ligue du Dauphine Savoie", ["Dauphine Savoie"]],
+           ["Ligue de Franche Comte", ["Franche Comte 1"]],
+           ["Ligue de Haute Normandie", ["Haute Normandie 1", "Haute Normandie 2"]],
+           ["Ligue de l'Ile de France", ["Essonne 1", "Hauts de Seine 1", "Paris 1", "Seine et Marne 1",
+                                         "Seine Saint Denis 1", "Val de Marne 1", "Val d'Oise 1", "Yvelines 1"]],
+           ["Ligue du Languedoc Roussillon", ["Languedoc Roussillon 1", "Pays Cathare 1"]],
+           ["Ligue de Lorraine", ["Lorraine 1", "Lorraine 2"]],
+           ["Ligue du Lyonnais", ["Lyonnais 1"]],
+           ["Ligue de Midi Pyrenees", ["Midi Pyrenees 1", "Midi Pyrenees 2"]],
+           ["Ligue du Nord Pas de Calais", ["Pre Nationale H.D.F.", "Regionale H.D.F.", "Pre Regionale H.D.F."]],
+           ["Ligue des Pays de la Loire", ["Loire Atlantique 1", "Loire Atlantique 2", "Maine et Loire 1",
+                                           "Mayenne 1", "Pays de la Loire 1", "Sarthe 1", "Vendee 1"]],
+           ["Ligue de Picardie", ["Pre Nationale H.D.F.", "Regionale H.D.F."]],
+           ["Ligue du Poitou-Charentes", ["Poitou Charentes 1", "Poitou Charentes 2"]],
+           ["Ligue de Provence", ["Provence", "Bouches du Rhone 1"]]]
 
 
 class Scraper:
