@@ -1,10 +1,10 @@
 class Player:
-    def __init__(self, name, game_number):
+    def __init__(self, name, number_games):
         self.name = name
-        self.game_number = game_number
+        self.number_games = number_games
 
     def __str__(self):
-        return str(self.game_number) + ' ' + self.name
+        return str(self.number_games) + ' ' + self.name
 
     def __add__(self, other):
-        self.game_number += other.game_number
+        self.number_games += other.number_games

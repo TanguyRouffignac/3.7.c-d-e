@@ -17,7 +17,7 @@ class Scraper:
 
     def scrape_team(self, url, team):
         for p in self.players.players:
-            if p.game_number >= 3:
+            if p.number_games >= 3:
                 team.unavailable_players.append([p.name, 'c'])
         self.browser.open('http://www.echecs.asso.fr/' + url)
         soup = BeautifulSoup(self.browser.response().read(), 'lxml')
@@ -45,10 +45,12 @@ class Scraper:
                 if matches[i * (number_boards + 1)]("td")[2].text == team.name:
                     color = 2
                 if color < 3:
+                    played = 0
                     for j in range(0, number_boards):
                         game = matches[i * (number_boards + 1) + j + 1]
                         name = game("td")[color].text
                         if name != '':
+                            played = 1
                             name = re.split('  ', name)[0]
                             if re.split(' ', name)[0] in titles:
                                 words = re.split(' ', name)
@@ -59,6 +61,8 @@ class Scraper:
                                 name += words[len(words) - 1]
                             team.add(Player(name, 1))
                             self.players.add(Player(name, 1))
+                    if played:
+                        team.number_rounds += 1
                     break
             self.browser.form = list(self.browser.forms())[-1]
             self.browser.form.new_control('hidden', '__EVENTTARGET', {'value': ''})
@@ -95,3 +99,12 @@ class Scraper:
                                 break
                         if found == 0:
                             team.unavailable_players.append([player.name, 'd'])
+            for player in self.players.players:
+                if player.number_games > team.number_rounds:
+                    found = 0
+                    for unavailable in team.unavailable_players:
+                        if player.name == unavailable[0]:
+                            found = 1
+                            break
+                    if found == 0:
+                        team.unavailable_players.append([player.name, 'e'])
