@@ -1,14 +1,14 @@
 class Team:
-    def __init__(self, name, competition, division):
+    def __init__(self, name, division, group):
         self.name = name
-        self.competition = competition
         self.division = division
+        self.group = group
         self.players = []
         self.number_rounds = 0
         self.unavailable_players = []
 
     def __str__(self):
-        value = self.name + ' (' + self.competition + ', ' + self.division + ') ' + str(self.number_rounds) + '\n'
+        value = self.name + ' (' + self.division + ', ' + self.group + ') ' + str(self.number_rounds) + '\n'
         self.players.sort(key=lambda player: player.name)
         self.unavailable_players.sort()
         for p in self.players:

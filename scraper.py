@@ -78,15 +78,15 @@ class Scraper:
         del teams[0]
         del teams[-1]
         for t in teams:
-            if t("td")[1].text == 'Interclubs Adultes':
-                team = Team(t("td")[0].text, t("td")[1].text, t("td")[2].text)
+            if t("td")[1].text == 'Interclubs Adultes' and t("td")[2].text != "Top 12":
+                team = Team(t("td")[0].text, t("td")[2].text, t("td")[3].text)
                 self.scrape_team(t("td")[3]("a")[0]['href'], team)
             if re.split(' ', t("td")[1].text)[0] == 'Ligue':
                 for league in leagues:
                     if league[0] == t("td")[1].text:
                         for division in league[1]:
                             if division == t("td")[2].text:
-                                team = Team(t("td")[0].text, t("td")[1].text, t("td")[2].text)
+                                team = Team(t("td")[0].text, t("td")[2].text, t("td")[3].text)
                                 self.scrape_team(t("td")[3]("a")[0]['href'], team)
         for team in self.teams:
             for other in self.teams:
@@ -96,6 +96,7 @@ class Scraper:
                         for unavailable in team.unavailable_players:
                             if player.name == unavailable[0]:
                                 found = 1
+                                unavailable[1] = 'd'
                                 break
                         if found == 0:
                             team.unavailable_players.append([player.name, 'd'])
