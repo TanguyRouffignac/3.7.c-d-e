@@ -1,6 +1,6 @@
 from scraper import *
 
 scraper = Scraper()
-scraper.scrape_club('http://www.echecs.asso.fr/ListeEquipes.aspx?ClubRef=84')
+scraper.search_club('Cre')
 for t in scraper.teams:
     print t

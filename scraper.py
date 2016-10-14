@@ -34,6 +34,7 @@ leagues = [["Ligue d'Alsace", ["Bas Rhin 1", "Haut Rhin 1", "Bas Rhin 2", "Haut 
 class Scraper:
     def __init__(self):
         self.browser = mechanize.Browser()
+        self.browser.open('http://www.echecs.asso.fr')
         self.teams = []
         self.players = Team('', '', '')
 
@@ -131,3 +132,16 @@ class Scraper:
                             break
                     if found == 0:
                         team.unavailable_players.append([player.name, 'e'])
+
+    def search_club(self, name):
+        self.browser.select_form('FormClub')
+        self.browser.form['ClubNom'] = name
+        self.browser.submit()
+        soup = BeautifulSoup(self.browser.response().read(), 'lxml')
+        clubs = soup("tr")
+        del clubs[0:2]
+        del clubs[-1]
+        for c in clubs:
+            print c("td")[2].text
+
+
