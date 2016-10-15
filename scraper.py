@@ -96,6 +96,8 @@ class Scraper:
 
     def scrape_club(self, url):
         self.browser.open(url)
+        self.teams = []
+        self.players = Team('', '', '')
         soup = BeautifulSoup(self.browser.response().read(), 'lxml')
         teams = soup("tr")
         del teams[0]
@@ -141,7 +143,9 @@ class Scraper:
         clubs = soup("tr")
         del clubs[0:2]
         del clubs[-1]
+        result = []
         for c in clubs:
-            print c("td")[2].text
-
-
+            result.append([c("td")[0].text, c("td")[1].text, c("td")[2].text,
+                           'http://www.echecs.asso.fr/' +
+                           c("td")[2]("a")[0]['href'].replace('FicheClub.aspx?', 'ListeEquipes.aspx?Club')])
+        return result
