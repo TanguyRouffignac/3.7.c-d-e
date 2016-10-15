@@ -1,7 +1,8 @@
 from scraper import *
 import gi
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk
+from gi.repository import Gtk, Gdk
+
 
 class MyWindow(Gtk.Window):
 
@@ -12,20 +13,34 @@ class MyWindow(Gtk.Window):
         self.connect("delete-event", Gtk.main_quit)
         self.box = Gtk.Box(spacing=5)
         self.entry = Gtk.Entry()
+        self.entry.connect("key-press-event", self.key_press)
         self.button = Gtk.Button(label='Rechercher')
-        self.button.connect("clicked", self.on_button_clicked)
+        self.button.connect("clicked", self.on_search_launched)
         self.box.pack_start(self.entry, True, True, 0)
         self.box.pack_start(self.button, True, True, 0)
         self.add(self.box)
         self.show_all()
         Gtk.main()
 
-    def on_button_clicked(self, widget):
+    def key_press(self, widget, event):
+        if event.keyval == Gdk.KEY_Return:
+            results = self.scraper.search_club(self.entry.get_text())
+            self.remove(self.box)
+            self.box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+            for r in results:
+                b = Gtk.Button(label=r[2])
+                b.connect("clicked", self.on_club_clicked)
+                b.href = r[3]
+                self.box.pack_start(b, True, True, 0)
+            self.add(self.box)
+            self.show_all()
+
+    def on_search_launched(self, widget):
         results = self.scraper.search_club(self.entry.get_text())
         self.remove(self.box)
         self.box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         for r in results:
-            b = Gtk.Button(label = r[2])
+            b = Gtk.Button(label=r[2])
             b.connect("clicked", self.on_club_clicked)
             b.href = r[3]
             self.box.pack_start(b, True, True, 0)
