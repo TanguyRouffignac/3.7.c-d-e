@@ -15,9 +15,15 @@ class MyWindow(Gtk.Window):
         self.entry = Gtk.Entry()
         self.entry.connect("key-press-event", self.key_press)
         self.button = Gtk.Button(label='Rechercher')
+        self.button.set_size_request(50, 50)
+        self.entry.set_size_request(600, 50)
+        hbox = Gtk.HBox()
+        vbox = Gtk.VBox()
+        hbox.pack_start(self.button, True, False, 0)
         self.button.connect("clicked", self.on_search_launched)
-        self.box.pack_start(self.entry, True, True, 0)
-        self.box.pack_start(self.button, True, True, 0)
+        self.box.pack_start(self.entry, True, False, 0)
+        vbox.pack_start(hbox, True, False, 0)
+        self.box.pack_start(vbox, True, True, 0)
         self.add(self.box)
         self.show_all()
         Gtk.main()
@@ -52,5 +58,16 @@ class MyWindow(Gtk.Window):
         while Gtk.events_pending():
             Gtk.main_iteration_do(False)
         self.scraper.scrape_club(widget.href)
+        self.entry = Gtk.TextView()
+        self.entry.set_editable(False)
+        sw = Gtk.ScrolledWindow()
+        sw.add(self.entry)
+        text = ''
         for t in self.scraper.teams:
-            print t
+            text += str(t) + '\n'
+        textbuffer = self.entry.get_buffer()
+        textbuffer.set_text(text)
+        self.box = Gtk.Box()
+        self.box.pack_start(self.entry, True, True, 0)
+        self.add(sw)
+        self.show_all()
