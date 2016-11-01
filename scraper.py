@@ -34,7 +34,6 @@ leagues = [["Ligue d'Alsace", ["Bas Rhin 1", "Haut Rhin 1", "Bas Rhin 2", "Haut 
 class Scraper:
     def __init__(self):
         self.browser = mechanize.Browser()
-        self.browser.open('http://www.echecs.asso.fr')
         self.teams = []
         self.players = Team('', '', '')
 
